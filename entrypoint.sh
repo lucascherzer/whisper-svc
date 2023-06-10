@@ -1,0 +1,1 @@
+python3 /svc/app.py
