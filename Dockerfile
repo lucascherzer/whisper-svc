@@ -21,7 +21,7 @@ WORKDIR /svc
 COPY src/app.py /svc
 COPY entrypoint.sh /
 
-EXPOSE 3000
+EXPOSE 5000
 
 ENTRYPOINT /entrypoint.sh
 
