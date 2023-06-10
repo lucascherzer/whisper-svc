@@ -21,14 +21,15 @@ def transcribe():
 
     # Save the data to the configured uploads folder
     filename = str(uuid.uuid4()) + ".mp3"
-    saved_location = f"/svc/uploads/{filename}"
-    with open(saved_location, "wb") as song:
+    save_location = f"/svc/uploads/{filename}"
+    with open(save_location, "wb") as song:
         song.write(data)
 
-    audio = whisper.load_audio(saved_location)
+    audio = whisper.load_audio(save_location)
     
-    result = WHISPER_MODEL.transcribe(saved_location)
+    result = WHISPER_MODEL.transcribe(save_location)
     res = result["text"]
+    os.remove(save_location)
     return res
 
 if __name__ == "__main__":
