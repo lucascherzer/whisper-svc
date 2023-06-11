@@ -5,7 +5,7 @@ import threading
 
 # Set the maximum allowed file size, e.g., for 10MB max file size:
 MAX_FILE_SIZE = 10  * 1024 ** 2 
-WHISPER_MODEL = whisper.load_model("base")
+WHISPER_MODEL = whisper.load_model(os.environ["WHISPER_MODEL"])
 
 # Create a Flask instance with bind IP address change
 app = Flask(__name__)
