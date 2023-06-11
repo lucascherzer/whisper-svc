@@ -16,8 +16,9 @@ Note that the whisper model used by default is the `base` model.
 This can be changed either at build or runtime, although changing at runtime has some
 drawbacks, namely that the container can not guarantee that the model is downloaded at build time
 so it will need internet access at runtime.
-To change at build time, add the flag `--build-arg WHISPER_MODEL=<model>` to the `docker build` command.
-To change at runtime, add the `--env WHISPER_MODEL=<model>`
+
+- To change at build time, add the flag `--build-arg WHISPER_MODEL=<model>` to the `docker build` command.
+- To change at runtime, add the `--env WHISPER_MODEL=<model>`
 
 ## API
 The container exposes an API on port 5000, with only one endpoint:
