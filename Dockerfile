@@ -16,7 +16,16 @@ RUN pip3 install -U filelock
 RUN pip3 install -U openai-whisper
 RUN pip3 install -U uuid
 RUN mkdir -p /svc/uploads
+
+ARG WHISPER_MODEL="base"
+ENV WHISPER_MODEL=${WHISPER_MODEL}
+
 WORKDIR /svc
+
+COPY src/download_model.py /svc/
+# download model
+RUN python3 /svc/download_model.py
+
 
 COPY src/app.py /svc
 COPY entrypoint.sh /
