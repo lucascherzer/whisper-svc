@@ -18,7 +18,7 @@ drawbacks, namely that the container can not guarantee that the model is downloa
 so it will need internet access at runtime.
 
 - To change at build time, add the flag `--build-arg WHISPER_MODEL=<model>` to the `docker build` command.
-- To change at runtime, add the `--env WHISPER_MODEL=<model>`
+- To change at runtime, add the flag `--env WHISPER_MODEL=<model>` to the `docker run` command.
 
 ## API
 The container exposes an API on port 5000, with only one endpoint:
