@@ -28,9 +28,11 @@ def transcribe():
     audio = whisper.load_audio(save_location)
     
     result = WHISPER_MODEL.transcribe(save_location)
-    res = result["text"]
     os.remove(save_location)
-    return res
+    return {
+        "language": result["language"],
+        "text": result["text"]
+    }
 
 if __name__ == "__main__":
     port = 5000
