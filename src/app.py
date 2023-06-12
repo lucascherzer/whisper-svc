@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 import os, uuid
 import whisper
 import threading
@@ -17,22 +17,25 @@ def transcribe():
 
     # Get the file from the POST request
 
-    data = request.stream.read()
+    try:
+        data = request.stream.read()
 
-    # Save the data to the configured uploads folder
-    filename = str(uuid.uuid4()) + ".mp3"
-    save_location = f"/svc/uploads/{filename}"
-    with open(save_location, "wb") as song:
-        song.write(data)
+        # Save the data to the configured uploads folder
+        filename = str(uuid.uuid4()) + ".mp3"
+        save_location = f"/svc/uploads/{filename}"
+        with open(save_location, "wb") as song:
+            song.write(data)
 
-    audio = whisper.load_audio(save_location)
+        audio = whisper.load_audio(save_location)
     
-    result = WHISPER_MODEL.transcribe(save_location)
-    os.remove(save_location)
-    return {
-        "language": result["language"],
-        "text": result["text"]
-    }
+        result = WHISPER_MODEL.transcribe(save_location)
+        os.remove(save_location)
+        return {
+            "language": result["language"],
+            "text": result["text"]
+        }
+    except:
+        return abort(500)
 
 if __name__ == "__main__":
     port = 5000
