@@ -15,14 +15,14 @@ UPLOADS_DIR = "/svc/uploads"
 @app.route("/api/transcribe", methods=["POST"])
 def transcribe():
 
-    # Get the file from the POST request
-
+    save_location = f"/svc/uploads/{filename}"
+    filename = str(uuid.uuid4()) + ".mp3"
     try:
+
+        # Get the file from the POST request
         data = request.stream.read()
 
         # Save the data to the configured uploads folder
-        filename = str(uuid.uuid4()) + ".mp3"
-        save_location = f"/svc/uploads/{filename}"
         with open(save_location, "wb") as song:
             song.write(data)
 
@@ -35,6 +35,7 @@ def transcribe():
             "text": result["text"]
         }
     except:
+        os.remove(save_location)
         return abort(500)
 
 if __name__ == "__main__":
