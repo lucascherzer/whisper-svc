@@ -1,6 +1,6 @@
 # whisper-svc
 
-A containerization of OpenAIs whisper speech recognition model
+A containerization of OpenAIs whisper speech recognition model. Exposes an API to transcribe mp3 files
 
 ## Building + Deploying
 
@@ -20,7 +20,9 @@ so it will need internet access at runtime.
 - To change at build time, add the flag `--build-arg WHISPER_MODEL=<model>` to the `docker build` command.
 - To change at runtime, add the flag `--env WHISPER_MODEL=<model>` to the `docker run` command.
 
-## API
+The list of all possible languages is defined [here](https://github.com/openai/whisper/blob/248b6cb124225dd263bb9bd32d060b6517e067f8/whisper/tokenizer.py#L10)
+
+## API 
 The container exposes an API on port 5000, with only one endpoint:
 
 ### POST `/api/transcribe`
@@ -32,4 +34,4 @@ Returns a JSON object:
   "text": "text"
 }
 ```
-The list of all possible languages is defined [here](https://github.com/openai/whisper/blob/248b6cb124225dd263bb9bd32d060b6517e067f8/whisper/tokenizer.py#L10)
+An example client usage can be found in the examples folder
